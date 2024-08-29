@@ -1,0 +1,695 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+}
+
+.main-container {
+  background-color: #fff;
+  padding: 5px 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  padding: 20px;
+  border-radius: 10px;
+  background: #00daff29;
+  box-shadow: inset 1px 1px 10px 2px hsl(242deg 88.4% 45.3% / 23%);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.link-container {
+  margin: 10px auto;
+  padding: 20px;
+  border-radius: 10px;
+  background: hsl(210, 60%, 90%); /* Light blue background */
+  box-shadow: inset 1px 1px 8px 0px #333;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 36px;
+}
+
+.attendance-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+.attendance-form label {
+  font-weight: bold;
+  color: #555;
+  font-size: 18px;
+}
+
+.attendance-form input[type="date"] {
+  padding: 12px;
+  border: 1px solid hsla(242, 88.4%, 66.3%, 1);
+  border-radius: 8px;
+  width: 20%;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+#staff-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#staff-table th,
+#staff-table td {
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: inset 1px 1px 3px 1px hsla(240, 7%, 62%, 1);
+}
+
+#staff-table th {
+  background-color: #f2f2f2;
+  color: #555;
+}
+
+.staff-id,
+.staff-name {
+  font-weight: bold;
+  color: #333;
+  font-size: 16px;
+}
+
+.attendance-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.radio-option {
+  margin-right: 15px;
+}
+
+.attendance-radio {
+  display: none;
+}
+
+.attendance-radio+label {
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: hsl(206deg 37.29% 96.47%);
+  box-shadow: inset 1px 1px 4px #3333337d;
+}
+.attendance-radio:hover+label {
+  background-color: #ccc;
+}
+
+.attendance-radio:checked[value="present"]+label {
+  background-color: #4CAF50;
+  color: white;
+  box-shadow: inset 2px 2px 5px #4CAF50; /* Specific box-shadow for 'present' */
+}
+
+.attendance-radio:checked[value="absent"]+label {
+  background-color: #dc3545;
+  color: white;
+  box-shadow: inset 2px 2px 5px #dc3545; /* Specific box-shadow for 'absent' */
+}
+
+.attendance-radio:checked[value="rest_day"]+label {
+  background-color: #007bff;
+  color: white;
+  box-shadow: inset 2px 2px 5px #007bff; /* Specific box-shadow for 'rest_day' */
+}
+
+.attendance-radio:checked[value="leave"]+label {
+  background-color: #ffc107;
+  color: #333;
+  box-shadow: inset 2px 2px 5px #ffc107; /* Specific box-shadow for 'leave' */
+}
+
+
+.leave-reason {
+display: none;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #333;
+  appearance: none;
+  font-size: 16px;
+}
+
+.attendance-radio:checked+label+.leave-reason {
+  display: inline-block;
+}
+
+.leave-reason option {
+  padding: 10px;
+  font-size: 16px;
+}
+@media screen and (max-width: 600px) {
+  #staff-table {
+    font-size: 14px;
+  }
+
+  #staff-table th,
+  #staff-table td {
+    padding: 12px;
+  }
+}
+
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+
+.attendance-button {
+  background: linear-gradient(171deg, #2ecc71, #27ae60);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 4px 7px 5px rgb(0 0 0 / 38%);
+}
+
+.attendance-button:hover {
+  transform: translateY(-2px);
+}
+
+.attendance-button:focus {
+  outline: none;
+}
+
+.attendance-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#mark-present-button {
+  background: linear-gradient(171deg, #3498db, #2980b9);
+}
+
+#reset-attendance-button {
+  background: linear-gradient(171deg, #e74c3c, #c0392b);
+}
+.confirm{
+  background: linear-gradient(171deg, #e74c3c, #c0392b);
+
+}
+
+/*style for days of week*/
+.date-picker-container {
+  display: flex;
+  align-items: center;
+}
+
+.date-picker-container label {
+  font-weight: bold;
+  color: #555;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.date-picker-container input[type="date"] {
+  padding: 12px;
+  border: 1px solid hsla(242, 88.4%, 66.3%, 1);
+  border-radius: 8px;
+  width: 20%;
+  box-sizing: border-box;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+#day-of-week {
+  font-size: 20px;
+  font-weight: bold;
+  color: #007bff; /* Blue color for emphasis */
+  margin-left: 10px;
+  text-transform: uppercase; /* Convert text to uppercase for added emphasis */
+  letter-spacing: 1px; /* Add letter spacing for better readability */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+}
+.attendance-status {
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-left: 10px;
+  display: inline-block;
+}
+
+.attendance-status.taken {
+  background-color: #28a745; /* Green color for taken */
+  color: white; /* White text color for contrast */
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+}
+
+.attendance-status.not-taken {
+  background-color: #dc3545; /* Red color for not taken */
+  color: white; /* White text color for contrast */
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+}
+
+#message {
+  display: none; /* Hide the container by default */
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #dff0d8; /* Green color for success message */
+  border: 1px solid #d0e9c6; /* Green border color */
+  border-radius: 5px;
+  color: #3c763d; /* Dark green text color */
+}
+
+#message.error {
+  background-color: #f2dede; /* Red color for error message */
+  border-color: #ebccd1; /* Red border color */
+  color: #a94442; /* Dark red text color */
+}
+#reset-message {
+  display: none; /* Hide the container by default */
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #dff0d8; /* Green color for success message */
+  border: 1px solid #d0e9c6; /* Green border color */
+  border-radius: 5px;
+  color: #3c763d; /* Dark green text color */
+}
+
+/* CSS for modal */
+/* CSS for modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4); /* Darken the background */
+  border-radius: 5px;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border: 1px solid hsla(0, 0%, 0%, 0.21);
+  max-width: 90%;
+  box-shadow: 5px 5px 9px 2px #1010108f;
+  border-radius: 5px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #888;
+  font-size: 24px;
+  cursor: pointer;
+}
+.close:hover {
+
+  color: #ff0000;
+  font-size: 25px;
+font-weight: bolder;
+}
+
+
+.modal-content p {
+  margin-bottom: 10px;
+}
+
+.modal-content ul {
+  margin-bottom: 20px;
+}
+
+.modal-content button {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-content button:hover {
+  background-color: #45a049;
+}
+
+.note{
+  margin-left: 8px;
+  color: red;
+  font-weight: 550;
+}
+
+/* CSS for the modal */
+.log-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  max-width: 80%;
+  max-height: 80%;
+  overflow-y: auto;
+  background-color: hsl(30deg 74.6% 33.01% / 26%);
+  border-radius: 7px;
+  padding: 4px;
+}
+
+.log-modal-content {
+  background-color: #000000; /* Black background */
+  color: #00FF00; /* Green text */
+  border: 1px solid #888;
+  border-radius: 5px;
+  padding: 20px;
+  width: 100%; /* Set width to fill the modal */
+  max-height: 500px; /* Set maximum height */
+  overflow-y: auto; /* Enable vertical scrolling if content exceeds the height */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+/* Style the scrollbar */
+.log-modal-content::-webkit-scrollbar {
+  width: 12px; /* Set the width of the scrollbar */
+}
+
+/* Track */
+.log-modal-content::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color of the scrollbar track */
+}
+
+/* Handle */
+.log-modal-content::-webkit-scrollbar-thumb {
+  background:hsl(0.48deg 100); /* Color of the scrollbar handle */
+  border-radius: 6px; /* Set the radius of the scrollbar handle */
+}
+
+/* Handle on hover */
+.log-modal-content::-webkit-scrollbar-thumb:hover {
+  background: #2f00ff; /* Color of the scrollbar handle on hover */
+}
+
+.log-modal-content .close {
+  color: #00FF00;
+  position: absolute;
+  top: 6px;
+  right: 18px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.log-modal-content .close:hover,
+.log-modal-content .close:focus {
+  color: #ff0000; /* White text on hover or focus */
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+.log-content {
+  font-family: "Courier New", Courier, monospace; /* Use monospace font */
+  white-space: pre-wrap; /* Preserve line breaks and wrap long lines */
+}
+
+/* Style for the staff details modal */
+.staff-info-modal {
+  display: none; /* Hide modal by default */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+
+/* Style for the modal content */
+.view-modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 5px;
+  width: 50%; /* Adjust the width as needed */
+  position: relative; /* Position relative for absolute positioning of lines */
+}
+
+/* Style for the close button */
+.view-modal-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.view-modal-close:hover,
+.view-modal-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Style for the modal title */
+.view-modal-title {
+  margin-top: 0;
+}
+
+/* Style for the staff details */
+.view-staff-details {
+  margin-top: 20px;
+}
+
+/* Style for detail lines */
+.detail {
+  margin-bottom: 10px;
+  font-size: 16px;
+  position: relative; /* Position relative for absolute positioning of lines */
+}
+
+/* Style for keys */
+.key {
+  font-weight: bold;
+  color: #333;
+  display: inline-block;
+  width: 120px; /* Adjust the width as needed */
+}
+
+/* Style for values */
+/* Style for values */
+/* Style for values */
+.value {
+  color: #666;
+  margin-left: 50px; /* Add margin to push values away from the left border */
+  text-transform: capitalize;
+  font-family: monospace;
+}
+
+/* Different styles for each value */
+.value-id {
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+ 
+}
+
+.value-name {
+  color: #1e90ff; /* Blue color for Name */
+  font-family: 'circular';
+}
+
+.value-role {
+  color: #008000; /* Green color for Role */
+  font-family: 'circular';
+}
+
+.value-contact {
+  color: #ff1493; /* Pink color for Contact */
+}
+
+.value-email {
+  color: #8a2be2; /* Blue Violet color for Email */
+}
+
+.value-address {
+  color: #000080; /* Navy color for Address */
+}
+
+.value-category {
+  color: #ff4500; /* Orange Red color for Staff Category */
+}
+
+.value-gender {
+  color: #9400d3; /* Dark Violet color for Gender */
+}
+
+.value-entry-date {
+  font-family: cursive;
+}
+
+.value-rest-day {
+  color: hsla(0, 0%, 13%, 1);
+  font-weight: bolder;
+  font-family: system-ui;
+}
+/* Style for imaginary lines */
+.line {
+  position: absolute;
+  top: 0;
+  left: 120px; /* Adjust left position to align with keys */
+  height: 100%;
+  border-left: 1px dashed #999; /* Imaginary line */
+}
+.view-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 5px;
+}
+
+.view-button img {
+  width: 18px; /* Adjust the width and height as needed */
+  height: 18px;
+}
+.attendance-analysis-link {
+  margin-top: 10px; /* Add space between button description and link */
+}
+
+.attendance-analysis-link a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: transparent;
+  color: #007bff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 600;
+  border: 3px solid #007bff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.attendance-analysis-link a:hover {
+  background-color: #007bff; /* Transparent background on hover */
+  color: white; /* Blue text color on hover */
+}
+
+.button-description {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: black;
+  font-family: monospace
+}
+/* Style for the red dot */
+.red-dot {
+  position: relative;
+}
+
+.red-dot::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  background-color: red;
+  border-radius: 50%;
+}
+
+/* Animation for shaking */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 0.5s ease infinite;
+}
+
+/* Pause the animation on hover */
+.material-icons-outlined:hover .shake {
+  animation-play-state: paused;
+  
+}
+.material-icons-outlined:hover {
+  transform: scale(1.2); /* Adjust the scale factor as needed */
+}
+
+/* Disable text selection and change cursor */
+.material-icons-outlined {
+  user-select: none; /* Disable text selection */
+  cursor: pointer; /* Change cursor to pointer */
+  pointer-events: auto; /* Enable pointer events */
+}
+
+/* Style for the message box */
+/* CSS styles for the message box and missed dates list */
+.message-box {
+  display: none;
+  position: fixed;
+  top: 7%;
+  width: 60%;
+  left: 61%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border: 3px solid #4caf50;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 600px;
+  box-shadow: inset 0px 0px 1px 3px #00000040;
+}
+
+.message-box h2 {
+  margin-bottom: 10px; /* Add space between header and list */
+  font-size: 20px;
+  color: #333; /* Header text color */
+}
+
+.message-box ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 0; /* Remove default margin for ul */
+}
+
+.message-box li {
+  font-size: 16px;
+  color: #ff0000; /* Date text color */
+  margin-bottom: 5px; /* Add space between list items */
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #aaa;
+}
+
+.close-button:hover {
+  color: #666;
+}

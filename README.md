@@ -39,6 +39,11 @@ Ensure you have the following installed:
    git clone https://github.com/your-username/attendance-analysis-system.git
    cd attendance-analysis-system
 
+## Directory Structure
+
+Your project directory should look like this:
+
+```plaintext
 attendance-analysis-system/
 ├── css/
 │   ├── attendance-analysis.css
@@ -47,6 +52,8 @@ attendance-analysis-system/
 │   └── attendance_analysis.js
 ├── index.html
 └── README.md
+
+
 Dependencies:
 
 ### No additional dependencies are required as the project uses CDN links for external libraries (ApexCharts and Google Fonts).

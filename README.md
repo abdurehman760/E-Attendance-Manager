@@ -52,11 +52,12 @@ attendance-analysis-system/
 │   └── attendance_analysis.js
 ├── index.html
 └── README.md
+```
 
 
-Dependencies:
+## Dependencies:
 
-### No additional dependencies are required as the project uses CDN links for external libraries (ApexCharts and Google Fonts).
+## No additional dependencies are required as the project uses CDN links for external libraries (ApexCharts and Google Fonts).
 
 ## Usage
 

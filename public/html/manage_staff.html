@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Staff</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/manage_staff.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+</head>
+
+<body>
+  <div class="grid-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="menu-icon" onclick="openSidebar()">
+        <span class="material-icons-outlined">menu</span>
+      </div>
+      <div class="header-left">
+        <span class="material-icons-outlined">search</span>
+      </div>
+      <div class="header-right">
+        <span class="material-icons-outlined">notifications</span>
+        <span class="material-icons-outlined">email</span>
+        <span class="material-icons-outlined">account_circle</span>
+      </div>
+    </header>
+    <!-- End Header -->
+
+    <!-- Sidebar -->
+    <aside id="sidebar">
+      <div class="sidebar-title">
+        <div class="sidebar-brand">
+          <span class="material-icons-outlined">inventory</span> E-Attendance-Manager
+        </div>
+        <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
+      </div>
+
+      <ul class="sidebar-list">
+        <li class="sidebar-list-item">
+          <a href="/">
+            <span class="material-icons-outlined">dashboard</span> Dashboard
+          </a>
+        </li>
+        <li class="sidebar-list-item active">
+          <a href="manage_staff">
+            <span class="material-icons-outlined">inventory_2</span> Manage Staff
+          </a>
+        </li>
+        <li class="sidebar-list-item">
+          <a href="attendance">
+            <span class="material-icons-outlined">fact_check</span>Attendance
+          </a>
+        </li>
+        
+        
+        <li class="sidebar-list-item">
+          <a href="reports">
+            <span class="material-icons-outlined">poll</span> Reports
+          </a>
+        </li>
+        <li class="sidebar-list-item">
+          <a href="settings">
+            <span class="material-icons-outlined">settings</span> Settings
+          </a>
+        </li>
+      </ul>
+    </aside>
+    <!-- End Sidebar -->
+
+<!-- Main -->
+    <main class="main-container">
+      <div class="main-title">
+        <p class="font-weight-bold">MANAGE STAFF</p>
+      </div>
+      <!-- Button to Add Staff -->
+      <div class="add-button">
+        <button class="btn-add" onclick="openModal()">Add Staff</button>
+      </div>
+     <!-- Doctor Section -->
+<div class="staff-section" id="doctorSection">
+  <h2 class="section-title">Doctors (<span id="doctorCount" class="count">0</span>)</h2>
+  <div id="doctorListContent" class="card-list"></div>
+</div>
+
+<!-- Staff Section -->
+<div class="staff-section" id="staffSection">
+  <h2 class="section-title">Staff Members (<span id="staffCount" class="count">0</span>)</h2>
+  <div id="staffListContent" class="card-list"></div>
+</div>
+
+  <!-- Add/Edit Staff Modal -->
+<div id="staffModal" class="add-modal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeModal()">&times;</span>
+    <h2 class="modal-title" id="modal-title">Add Staff</h2>
+    <form id="staffForm">
+      <!-- Row 1: Name, Gender, Age -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" placeholder="e.g., Muhammad Ali" required maxlength="18" pattern="[A-Za-z ]+" title="Please enter alphabetic characters only">
+        </div>
+        
+        <div class="form-group">
+          <label for="gender">Gender:</label>
+          <select id="gender" name="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+      
+          <div class="form-group">
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" placeholder="e.g., 30" required min="0" max="99">
+          </div>
+       
+        
+      </div>
+
+      <!-- Row 2: Email, Contact, Address -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" placeholder="e.g., example@gmail.com" required maxlength="25">
+        </div>
+        <div class="form-group">
+          <label for="contact">Contact:</label>
+          <input type="tel" id="contact" name="contact" placeholder="e.g., +92 300 1234567" required maxlength="15">
+        </div>
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <input type="text" id="address" name="address" placeholder="e.g., Street Name, City" required maxlength="30">
+        </div>
+      </div>
+
+      <!-- Row 3: Role, Staff Role, Specialization -->
+      <div class="form-row">
+        <div class="form-group custom-dropdown">
+          <label for="role">Role:</label>
+          <select id="role" name="role" onchange="toggleFields()">
+            <option value="doctor">Doctor</option>
+            <option value="staff">Staff</option>
+          </select>
+        </div>
+        <div class="form-group custom-dropdown" id="staffRoleGroup" style="display: none;">
+          <label for="staffRole">Staff Role:</label>
+          <select id="staffRole" name="staffRole">
+            <option value="nurse">Nurse</option>
+            <option value="receptionist">Receptionist</option>
+            <option value="lab_technician">Lab Technician</option>
+            <option value="others">Others</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="specialization">Specialization:</label>
+          <input type="text" id="specialization" name="specialization" placeholder="e.g., Cardiology, etc." required maxlength="30">
+        </div>
+      </div>
+
+      <!-- Row 4: Salary, Doctor Fee, Day of Rest -->
+      <div class="form-row" id="salaryDocFeeRow" style="display: none;">
+        <div class="form-group">
+          <label for="salary">Salary (PKR):</label>
+          <input type="number" id="salary" name="salary" placeholder="e.g., 50000" oninput="this.value = this.value.slice(0, 7)" required>
+        </div>
+        <div class="form-group">
+          <label for="docFee">Doctor Fee (PKR):</label>
+          <input type="number" id="docFee" name="docFee" placeholder="e.g., 2000" oninput="this.value = this.value.slice(0, 5)" required>
+        </div>
+        
+        <div class="form-group custom-dropdown" id="dayOfRestGroup">
+          <label for="dayOfRest">Day of Rest:</label>
+          <select id="dayOfRest" name="dayOfRest">
+            <option value="Sunday">Sunday</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Button for saving the staff information -->
+      <button type="submit" id="btnSave" data-action="add">Save</button>
+    </form>
+  </div>
+</div>
+<!-- End Add/Edit Staff Modal -->
+
+
+
+      <!-- View Staff Details Modal -->
+      <div id="viewStaffModal" class="staff-info-modal">
+        <div class="modal-content">
+          <span class="modal-close" onclick="closeViewModal()">&times;</span>
+          <h2 class="modal-title" id="viewModalTitle">View Staff Details</h2>
+          <div id="viewStaffDetails" class="view-staff-details">
+            <!-- Staff details will be displayed here -->
+          </div>
+        </div>
+      </div>
+      <!-- Terminate Modal -->
+      <div id="terminateModal" class="termination-modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeTerminateModal()">&times;</span>
+          <h2>Terminate Staff Member</h2>
+          <p>Please select a termination reason:</p>
+          <form id="terminateForm">
+            <label for="terminationReason">Termination Reason:</label>
+            <select id="terminationReason" name="terminationReason" onchange="toggleOtherInput()">
+              <option value="retirement">Retirement</option>
+              <option value="resignation">Resignation</option>
+              <option value="fired">Fired</option>
+              <option value="unknown">Unknown</option>
+              <option value="other">Other</option>
+              <!-- Add more options as needed -->
+            </select>
+            <input type="text" id="otherReasonInput" name="otherReason" placeholder="Enter Other Reason"
+              style="display: none;">
+            <button type="button" class="btn-terminate" onclick="terminateStaff()">Confirm</button>
+          </form>
+        </div>
+      </div>
+
+
+  </div>
+
+
+  </main>
+  <!-- End Main -->
+  </div>
+
+  <!-- Custom JS -->
+  <script src="js/staff.js"></script>
+  
+</body>
+
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance System</title>
+  <link rel="stylesheet" href="/css/attendance.css">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <!-- Add Material Icons link to your HTML -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons">
+</head>
+
+<body>
+  <div class="grid-container">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="menu-icon" onclick="openSidebar()">
+        <span class="material-icons-outlined">menu</span>
+      </div>
+      <div class="header-left">
+        <span class="material-icons-outlined">search</span>
+        <!-- Add the link here -->
+       
+      </div>
+      <div class="header-right">
+        <span id="notificationsIcon" class="material-icons-outlined">notifications</span>
+        <span class="material-icons-outlined">account_circle</span>
+      </div>
+    </header>
+    
+    <!-- End Header -->
+
+    <!-- Sidebar -->
+    <aside id="sidebar">
+      <div class="sidebar-title">
+        <div class="sidebar-brand">
+          <span class="material-icons-outlined">inventory</span> E-Attendance-Manager
+        </div>
+        <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
+      </div>
+
+      <ul class="sidebar-list">
+        <li class="sidebar-list-item">
+          <a href="/">
+            <span class="material-icons-outlined">dashboard</span> Dashboard
+          </a>
+        </li>
+        <li class="sidebar-list-item">
+          <a href="manage_staff">
+            <span class="material-icons-outlined">inventory_2</span> Manage Staff
+          </a>
+        </li>
+        <li class="sidebar-list-item active">
+          <a href="attendance">
+            <span class="material-icons-outlined">fact_check</span> Attendance
+          </a>
+        </li>
+        
+        
+        <li class="sidebar-list-item">
+          <a href="reports">
+            <span class="material-icons-outlined">poll</span> Reports
+          </a>
+        </li>
+        <li class="sidebar-list-item">
+          <a href="settings">
+            <span class="material-icons-outlined">settings</span> Settings
+          </a>
+        </li>
+      </ul>
+    </aside>
+    <!-- End Sidebar -->
+    <main class="main-container">
+      <div class="container">
+        <h1>Attendance System</h1>
+        <!-- Add a link to the attendance analysis page -->
+    
+        <div class="attendance-form">
+          <div class="date-picker-container">
+            <label for="date">Select Date:</label>
+            <input type="date" id="date">
+            <span id="day-of-week"></span> <!-- Display the day of the week here -->
+            <div id="attendance-status" class="attendance-status"></div>
+            
+            <div id="messageBox" class="message-box">
+              <span id="messageCloseButton" class="close-button">&times;</span>
+              <div id="missedAttendanceMessage" class="message-content"></div>
+          </div>
+
+          </div>
+    
+          <div class="message-container">
+            <div id="message"></div> <!-- Display general messages here -->
+            <div id="update-message"></div> <!-- Display update messages here -->
+            <div id="reset-message"></div>
+    
+          </div>
+    
+          <table id="staff-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Attendance</th>
+              </tr>
+            </thead>
+            <tbody id="staff-list">
+              <!-- Staff members will be dynamically added here -->
+            </tbody>
+          </table>
+    
+          <!-- HTML for the modal -->
+          <!-- HTML for the modal -->
+          <div id="logModal" class="log-modal">
+            <div class="log-modal-content">
+              <span class="close">&times;</span>
+              <div id="logContent" class="log-content"></div>
+            </div>
+          </div>
+          <!-- Modal for confirmation -->
+          <div id="reset-attendance-modal" class="modal">
+            <div class="modal-content">
+              <span class="close" onclick="hideResetAttendanceModal()">&times;</span>
+              <p>Are you sure you want to reset the attendance for today?</p>
+              <p><strong>This action will:</strong></p>
+              <ul>
+                <li>Delete all attendance records for today.</li>
+                <li>Reset the attendance status for all staff members to the default state.</li>
+                <li>Require the attendance to be taken again for today.</li>
+              </ul>
+              <p><strong>Note:</strong><span class="note">This action cannot be undone<span> .</p>
+              <button onclick="resetAttendance()" id="attendance-button-confirm" class="attendance-button confirm"> Yes,
+                Reset
+                Attendance</button>
+            </div>
+          </div>
+          <!-- View Staff Details Modal -->
+          <div id="viewStaffModal" class="staff-info-modal unique-view-modal"> <!-- Updated unique class name -->
+            <div class="view-modal-content"> <!-- Updated unique class name -->
+              <span class="view-modal-close" onclick="closeViewModal()">&times;</span> <!-- Updated unique class name -->
+              <h2 class="view-modal-title" id="viewModalTitle">View Staff Details</h2>
+              <div id="viewStaffDetails" class="view-staff-details">
+                <!-- Staff details will be displayed here -->
+              </div>
+            </div>
+          </div>
+    
+    
+          <div class="button-container">
+            <button id="mark-present-button" class="attendance-button" onclick="markEveryonePresent()">Resolve Missed
+              Dates</button>
+            <button id="submit-button" class="attendance-button submit-button" onclick="submitAttendance()">Submit</button>
+            <button id="reset-attendance-button" class="attendance-button" onclick="showResetAttendanceModal()">Reset
+              Attendance</button>
+          </div>
+    
+    
+          
+        </div>
+      </div>
+      <div class="link-container">
+      <div class="button-description">
+        Track attendance trends and performance with detailed monthly and yearly summaries.
+      </div>
+
+      <div class="attendance-analysis-link">
+        <a href="attendance_analysis">
+          View Attendance Analysis
+        </a>
+      </div>
+      </div>
+    </main>
+    <!-- End Main -->
+    </div>
+
+  <!-- End Main -->
+
+
+<script src="js/attendance.js"></script>
+
+</body>
+
+</html>
